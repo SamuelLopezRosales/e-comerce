@@ -4,6 +4,7 @@ CABEZOTE
 
 $("#btnCategorias").click(function(){
 
+	// checo el tamaño de la pantalla
 	if(window.matchMedia("(max-width:767px)").matches){
 
 		$("#btnCategorias").after($("#categorias").slideToggle("fast"))
@@ -11,8 +12,8 @@ $("#btnCategorias").click(function(){
 	}else{
 
 		$("#cabezote").after($("#categorias").slideToggle("fast"))
-		
+
 	}
 
-		
+
 })
