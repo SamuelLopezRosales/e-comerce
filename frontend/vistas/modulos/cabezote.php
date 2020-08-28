@@ -76,7 +76,7 @@ HEADER
 
 				<a href="#">
 
-					<img src="http://localhost:8080/e-comerce/e-comerce/backend/vistas/img/plantilla/logo.png" class="img-responsive">
+					<img src="http://localhost:8080/e-comerce/e-comerce/backend/<?php echo $social["logo"]; ?>" class="img-responsive">
 
 				</a>
 
