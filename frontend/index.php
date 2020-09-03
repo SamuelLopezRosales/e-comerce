@@ -4,6 +4,7 @@
 
 	require_once "modelos/plantilla.modelo.php";
 	require_once "modelos/productos.modelo.php";
+	require_once "modelos/rutas.php";
 
 	$plantilla = new ControladorPlantilla();
 	$plantilla->plantilla();

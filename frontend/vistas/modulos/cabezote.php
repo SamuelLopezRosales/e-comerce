@@ -158,19 +158,24 @@ HEADER
 
 		<div class="col-xs-12 backColor" id="categorias">
 			<?php
-					$categorias = ProductoControlador::ctrMostrarCategorias();
+					$item = null;
+					$valor = null;
+					$categorias = ProductoControlador::ctrMostrarCategorias($item,$valor);
 					foreach ($categorias as $key => $value) {
 						# code...
 						echo '<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
 						<h4>
-							<a href="#" class="pixelCategorias">'.$value["categoria"].'</a>
+							<a href="'.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
 						</h4>
 
 				<hr>
 
 				<ul>';
 
-				$subCategorias = ProductoControlador::ctrMostrarSubCategorias($value["id"]);
+				$item = "id_categoria";
+				$valor = $value["id"];
+
+				$subCategorias = ProductoControlador::ctrMostrarSubCategorias($item,$valor);
 
 				foreach ($subCategorias as $key => $value) {
 					echo '<li><a href="'.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
