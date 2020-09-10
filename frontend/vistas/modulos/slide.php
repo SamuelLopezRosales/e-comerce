@@ -147,10 +147,10 @@
 
 		<ol id="paginacion">
 
-        	<li item="1"><span class="fa fa-circle"></span></li>
+        	<li item="0"><span class="fa fa-circle"></span></li>
+			<li item="1"><span class="fa fa-circle"></span></li>
 			<li item="2"><span class="fa fa-circle"></span></li>
 			<li item="3"><span class="fa fa-circle"></span></li>
-			<li item="4"><span class="fa fa-circle"></span></li>
 
 		</ol>
 
