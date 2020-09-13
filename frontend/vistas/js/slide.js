@@ -12,6 +12,9 @@
  var detenerIntervalo = false;
  var toogle = false;
 
+ $("#slide ul li").css({"width":100/$("#slide ul li").length + "%"});
+ $("#slide ul").css({"width":$("#slide ul li").length*100 + "%"});
+
  /*============================================
  ANIMACION INICIAL
  ============================================*/
@@ -42,11 +45,13 @@ $("#paginacion li").click(function(){
 FLECHAS
 =========================================*/
 function avanzar(){
-	if(item == 3){
+	if(item == $("#slide ul li").length -1){
 		item = 0;
 	}else{
 		item++;
 	}
+
+	interrumpirCiclo = true;
 	movimientoSlide(item);
 }
 
@@ -56,7 +61,7 @@ $("#slide #avanzar").click(function(){
 
 $("#slide #retroceder").click(function(){
 	if(item == 0){
-		item = 3;
+		item = $("#slide ul li").length -1;
 	}else{
 		item--;
 	}
@@ -67,6 +72,8 @@ $("#slide #retroceder").click(function(){
 MOVIMIENTO SLIDE
 =========================================*/
 function movimientoSlide(item){
+	$("#slide ul li").finish();
+
 	$("#slide ul").animate({"left": item * -100 + "%"},1000, "easeOutQuart");
 
 	$("#paginacion li").css({"opacity":.5});
@@ -94,6 +101,8 @@ INTERVALO DE TIEMPO
 setInterval(function(){
 	if(interrumpirCiclo){
 		interrumpirCiclo = false;
+		detenerIntervalo = false;
+		$("#slide ul li").finish();
 	}else{
 		if(!detenerIntervalo){
 		avanzar();

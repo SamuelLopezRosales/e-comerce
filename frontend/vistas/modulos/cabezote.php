@@ -1,6 +1,9 @@
 <!--=====================================
 TOP
 ======================================-->
+<?php
+	$servidor = Ruta::ctrRutaServidor();
+?>
 
 <div class="container-fluid barraSuperior" id="top">
 
@@ -76,7 +79,7 @@ HEADER
 
 				<a href="#">
 
-					<img src="http://localhost:8080/e-comerce/e-comerce/backend/<?php echo $social["logo"]; ?>" class="img-responsive">
+					<img src="<?php echo $servidor.$social["logo"]; ?>" class="img-responsive">
 
 				</a>
 
