@@ -25,25 +25,27 @@ BANNER
 <?php
 	$titulosModulos = array("ARTÍCULOS GRATUITOS", "LO MÁS VENDIDO", "LO MÁS VISTO");
 	$rutaModulos = array("articulos-gratis","lo-mas-vendidos","lo-mas-vistos");
+	$base = 0;
+	$tope = 4;
 	if($titulosModulos[0]== "ARTÍCULOS GRATUITOS"){
 		$ordenar = "id";
 		$item = "precio";
 		$valor = 0;
-		$gratis = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor);
+		$gratis = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope);
 	}
 
 	if($titulosModulos[1]== "LO MÁS VENDIDO"){
 		$ordenar = "ventas";
 		$item = null;
 		$valor = null;
-		$ventas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor);
+		$ventas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope);
 	}
 
 	if($titulosModulos[2]== "LO MÁS VISTO"){
 		$ordenar = "vistas";
 		$item = null;
 		$valor = null;
-		$vistas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor);
+		$vistas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope);
 	}
 
 	$modulos = array($gratis,$ventas,$vistas);

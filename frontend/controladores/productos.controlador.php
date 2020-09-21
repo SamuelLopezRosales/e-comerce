@@ -23,9 +23,9 @@
 		/*=================================================
 		MOSTRAR PRODUCTOS
 		=================================================*/
-		public function ctrMostrarProductos($ordenar, $item, $valor){
+		public function ctrMostrarProductos($ordenar, $item, $valor, $base, $tope){
 			$tabla = "productos";
-			$respuesta = ModeloProducto::mdlMostrarProductos($tabla, $ordenar,$item, $valor);
+			$respuesta = ModeloProducto::mdlMostrarProductos($tabla, $ordenar,$item, $valor, $base, $tope);
 			return $respuesta;
 		}
 

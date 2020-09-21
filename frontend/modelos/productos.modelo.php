@@ -33,15 +33,15 @@
 			$stmt = null;
 		}
 
-		static public function mdlMostrarProductos($tabla, $ordenar, $item, $valor){
+		static public function mdlMostrarProductos($tabla, $ordenar, $item, $valor, $base, $tope){
 			if($item != null){
 				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item
-					= :$item ORDER BY $ordenar DESC LIMIT 4");
+					= :$item ORDER BY $ordenar DESC LIMIT $base, $tope");
 				$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
 				$stmt->execute();
 				return $stmt->fetchAll();
 			}else{
-				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY $ordenar DESC LIMIT 4");
+				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY $ordenar DESC LIMIT $base, $tope");
 				$stmt->execute();
 				return $stmt->fetchAll();
 			}
