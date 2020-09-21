@@ -20,6 +20,9 @@
 
 	?>
 
+	<!-- ============================================================================
+		PLUGIN CSS
+	===============================================================================-->
 
 	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/plugins/bootstrap.min.css">
 
@@ -29,17 +32,29 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed" rel="stylesheet">
 
+	<!-- ============================================================================
+		CSS PERSONALIZADO
+	===============================================================================-->
+
 	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/plantilla.css">
 
 	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/cabezote.css">
 
 	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/slide.css">
 
+	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/productos.css">
+
+	<!-- ============================================================================
+		PLUGIN JQUERY
+	===============================================================================-->
+
 	<script src="<?php echo $url; ?>vistas/js/plugins/jquery.min.js"></script>
 
 	<script src="<?php echo $url; ?>vistas/js/plugins/bootstrap.min.js"></script>
 
 	<script src="<?php echo $url; ?>vistas/js/plugins/jquery.easing.js"></script>
+
+	<script src="<?php echo $url; ?>vistas/js/plugins/jquery.scrollUp.js"></script>
 </head>
 <body>
 	<?php
@@ -53,6 +68,7 @@
 		=============================================*/
 		$rutas = array();
 		$ruta = null;
+		$infoProducto = null;
 		if(isset($_GET["ruta"])){
 			$rutas = explode("/", $_GET["ruta"]);
 			$item = "ruta";
@@ -76,16 +92,29 @@
 				$ruta = $valor;
 				}
 			}
+
+			/*=============================================
+			URL'S AMIGABLES DE PRODUCTOS
+			=============================================*/
+			$rutaProductos = ProductoControlador::ctrMostrarInfoProducto($item, $valor);
+			if($rutas[0] == $rutaProductos["ruta"]){
+				$infoProducto = $rutas[0];
+			}
 			/*=============================================
 			LISTA BLANCA DE URL'S AMIGABLES
 			=============================================*/
-			if($ruta != null){
+			if($ruta != null || $rutas[0] == "articulos-gratis" || $rutas[0] == "lo-mas-vendidos" || $rutas[0] == "lo-mas-vistos"){
 				include_once "modulos/productos.php";
+			}else if($infoProducto != null){
+				include_once "modulos/infoproducto.php";
 			}else{
 				include_once "modulos/error404.php";
 			}
 		}else{
 			include_once "modulos/slide.php";
+			// productos destacados
+			include_once "modulos/destacados.php";
+
 		}
 	?>
 
