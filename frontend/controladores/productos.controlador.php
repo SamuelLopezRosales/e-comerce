@@ -23,9 +23,9 @@
 		/*=================================================
 		MOSTRAR PRODUCTOS
 		=================================================*/
-		public function ctrMostrarProductos($ordenar, $item, $valor, $base, $tope){
+		public function ctrMostrarProductos($ordenar, $item, $valor, $base, $tope, $modo){
 			$tabla = "productos";
-			$respuesta = ModeloProducto::mdlMostrarProductos($tabla, $ordenar,$item, $valor, $base, $tope);
+			$respuesta = ModeloProducto::mdlMostrarProductos($tabla, $ordenar,$item, $valor, $base, $tope, $modo);
 			return $respuesta;
 		}
 
@@ -37,4 +37,52 @@
 			$respuesta = ModeloProducto::mdlMostrarInfoProducto($tabla, $item, $valor);
 			return $respuesta;
 		}
+
+		/*=================================================
+		LISTAR PRODUCTOS
+		=================================================*/
+		static public function ctrListarProductos($ordenar, $item2, $valor2){
+			$tabla = "productos";
+			$respuesta = ModeloProducto::mdlListarProductos($tabla, $ordenar, $item2, $valor2);
+			return $respuesta;
+		}
+
+		/*=============================================
+		MOSTRAR Banner
+		==============================================*/
+		static public function ctrMostrarBanner($ruta){
+			$tabla = "banner";
+
+			$banner = ModeloProducto::mdlMostrarBanner($tabla, $ruta);
+			return $banner;
+		}
+
+		/*=============================================
+	BUSCADOR
+	=============================================*/
+
+	static public function ctrBuscarProductos($busqueda, $ordenar, $modo, $base, $tope){
+
+		$tabla = "productos";
+
+		$respuesta = ModeloProducto::mdlBuscarProductos($tabla, $busqueda, $ordenar, $modo, $base, $tope);
+
+		return $respuesta;
+
+	}
+
+	/*=============================================
+	LISTAR PRODUCTOS BUSCADOR
+	=============================================*/
+
+	static public function ctrListarProductosBusqueda($busqueda){
+
+		$tabla = "productos";
+
+		$respuesta = ModeloProducto::mdlListarProductosBusqueda($tabla, $busqueda);
+
+		return $respuesta;
+
+	}
+
 	}

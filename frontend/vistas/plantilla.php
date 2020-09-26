@@ -9,6 +9,7 @@
 	<title>Tienda Virtual</title>
 
 	<?php
+		session_start();
 		$servidor = Ruta::ctrRutaServidor();
 		$icono = ControladorPlantilla::ctrEstiloPlantilla();
 		echo '<link rel="icon" href="'.$servidor.$icono["icono"].'">';
@@ -107,6 +108,8 @@
 				include_once "modulos/productos.php";
 			}else if($infoProducto != null){
 				include_once "modulos/infoproducto.php";
+			}else if($rutas[0] == "buscador"){
+				include_once "modulos/buscador.php";
 			}else{
 				include_once "modulos/error404.php";
 			}
@@ -117,9 +120,11 @@
 
 		}
 	?>
+	<input type="hidden" value="<?php echo $url; ?>" id="rutaOculta">
 
 	<script src="<?php echo $url; ?>vistas/js/cabezote.js"></script>
 	<script src="<?php echo $url; ?>vistas/js/plantilla.js"></script>
 	<script src="<?php echo $url; ?>vistas/js/slide.js"></script>
+	<script src="<?php echo $url; ?>vistas/js/buscador.js"></script>
 </body>
 </html>

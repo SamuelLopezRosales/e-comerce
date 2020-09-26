@@ -118,7 +118,7 @@ HEADER
 
 					<span class="input-group-btn">
 
-						<a href="#">
+						<a href="<?php echo $url; ?>buscador/1/recientes">
 
 							<button class="btn btn-default backColor" type="submit">
 
@@ -169,7 +169,7 @@ HEADER
 						# code...
 						echo '<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
 						<h4>
-							<a href="'.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
+							<a href="'.$url.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
 						</h4>
 
 				<hr>
@@ -182,7 +182,7 @@ HEADER
 				$subCategorias = ProductoControlador::ctrMostrarSubCategorias($item,$valor);
 
 				foreach ($subCategorias as $key => $value) {
-					echo '<li><a href="'.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
+					echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
 				}
 
 

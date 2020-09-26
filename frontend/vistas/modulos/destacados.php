@@ -1,28 +1,30 @@
 <?php
 	$servidor = Ruta::ctrRutaServidor();
-?>
-<!--=====================================
-BANNER
-======================================-->
+	$ruta = "sin-categoria";
+	$banner = ProductoControlador::ctrMostrarBanner($ruta);
+	$titulo1 = json_decode($banner["titulo1"], true);
+	$titulo2 = json_decode($banner["titulo2"], true);
+	$titulo3 = json_decode($banner["titulo3"], true);
 
+	if($banner != null){
 
-<figure class="banner">
+	echo '<figure class="banner">
 
-	<img src="http://localhost:8080/e-comerce/e-comerce/backend/vistas/img/banner/default.jpg" class="img-responsive" width="100%">
+	<img src="'.$servidor.$banner["img"].'" class="img-responsive" width="100%">
 
-	<div class="textoBanner textoDer">
+	<div class="textoBanner '.$banner["estilo"].'">
 
-		<h1 style="color:#fff">OFERTAS ESPECIALES</h1>
+		<h1 style="color:'.$titulo1["color"].'">'.$titulo1["texto"].'</h1>
 
-		<h2 style="color:#fff"><strong>50% off</strong></h2>
+		<h2 style="color:'.$titulo2["color"].'"><strong>'.$titulo2["texto"].'</strong></h2>
 
-		<h3 style="color:#fff">Termina el 31 de Octubre</h3>
+		<h3 style="color:'.$titulo3["color"].'">'.$titulo3["texto"].'</h3>
 
 	</div>
 
-</figure>
+</figure>';
+};
 
-<?php
 	$titulosModulos = array("ARTÍCULOS GRATUITOS", "LO MÁS VENDIDO", "LO MÁS VISTO");
 	$rutaModulos = array("articulos-gratis","lo-mas-vendidos","lo-mas-vistos");
 	$base = 0;
@@ -31,21 +33,24 @@ BANNER
 		$ordenar = "id";
 		$item = "precio";
 		$valor = 0;
-		$gratis = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope);
+		$modo = "DESC";
+		$gratis = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope, $modo);
 	}
 
 	if($titulosModulos[1]== "LO MÁS VENDIDO"){
 		$ordenar = "ventas";
 		$item = null;
 		$valor = null;
-		$ventas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope);
+		$modo = "DESC";
+		$ventas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope, $modo);
 	}
 
 	if($titulosModulos[2]== "LO MÁS VISTO"){
 		$ordenar = "vistas";
 		$item = null;
 		$valor = null;
-		$vistas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope);
+		$modo = "DESC";
+		$vistas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope, $modo);
 	}
 
 	$modulos = array($gratis,$ventas,$vistas);
