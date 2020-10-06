@@ -85,4 +85,18 @@
 
 	}
 
+	/*=============================================
+	ACTUALIZAR VISTA PRODUCTO
+	=============================================*/
+
+	static public function ctrActualizarVistaProducto($datos, $item){
+
+		$tabla = "productos";
+
+		$respuesta = ModeloProducto::mdlActualizarVistaProducto($tabla, $datos, $item);
+
+		return $respuesta;
+	}
+
+
 	}

@@ -202,3 +202,96 @@ HEADER
 </header>
 
 
+<!-- =================================================================
+	MODAL REGISTRO
+=====================================================================-->
+ <!-- The Modal -->
+  <div class="modal fade modalFormulario" id="modalRegistro">
+    <div class="modal-dialog modal-content">
+
+        <!-- Modal body -->
+        <div class="modal-body modalTitulo">
+          <h3 class="backColor">REGISTRARSE</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+
+          <!-- =============================================================
+          	REGISTRO FACEBOOK
+          =================================================================-->
+          <div class="col-sm-6 col-xs-12 facebook" id="btnFacebookRegistro">
+          	<p>
+          		<i class="fa fa-facebook"></i>
+          		Registro con Facebook
+          	</p>
+          </div>
+
+          <!-- =============================================================
+          	REGISTRO GOOGLE
+          =================================================================-->
+          <div class="col-sm-6 col-xs-12 google" id="btnGoogleRegistro">
+          	<p>
+          		<i class="fa fa-google"></i>
+          		Registro con Google
+          	</p>
+          </div>
+
+           <!-- =============================================================
+          	REGISTRO DIRECTO
+          =================================================================-->
+          <form method="POST" action="formulario.php" onsubmit="return registroUsuario()">
+          	<hr>
+          	<div class="form-group">
+          		<div class="input-group">
+          			<span class="input-group-addon">
+          				<i class="glyphicon glyphicon-user"></i>
+          			</span>
+          			<input type="text" class="form-control text-uppercase" id="regUsuario" name="regUsuario" placeholder="Nombre completo" required>
+          		</div>
+          	</div>
+
+          		<div class="form-group">
+          			<div class="input-group">
+          			<span class="input-group-addon">
+          				<i class="glyphicon glyphicon-envelope"></i>
+          			</span>
+          			<input type="email" class="form-control text-uppercase" id="regEmail" name="regEmail" placeholder="Correo Electrónico" required>
+          		</div>
+          	</div>
+
+          	<div class="form-group">
+          			<div class="input-group">
+          			<span class="input-group-addon">
+          				<i class="glyphicon glyphicon-lock"></i>
+          			</span>
+          			<input type="password" class="form-control text-uppercase" id="regPassword" name="regPassword" placeholder="Contraseña" required>
+          		</div>
+          	</div>
+
+          	<div class="checkBox">
+          	<label>
+          		<input id="regPoliticas" type="checkbox">
+          		<small>
+
+          			Al registrarse, usted acepta nuestras condiciones de uso y políticas de privacidad
+          			<br>
+
+          			<a href="https://www.iubenda.com/privacy-policy/14529324" class="iubenda-white iubenda-embed" title="Condiciones de uso y politicas de privacidad.">Leer más</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+
+          		</small>
+          	</label>
+          </div>
+          <input type="submit" class="btn btn-default backColor btn-block" value="ENVIAR">
+          </form>
+
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+          ¿Ya tienes una cuenta registrada? | <strong><a href="#modalIngreso" data-dismiss="modal" data-toggle="modal">Ingresar</a></strong>
+        </div>
+    </div>
+  </div>
+
+

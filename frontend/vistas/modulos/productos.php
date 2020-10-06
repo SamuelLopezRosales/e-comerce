@@ -113,7 +113,11 @@ if($banner != null){
 				$_SESSION["ordenar"] = $modo;
 			}
 		}else{
-			$modo = $_SESSION["ordenar"];
+			if(isset($_SESSION["ordenar"])){
+				$modo = $_SESSION["ordenar"];
+			}else{
+				$_SESSION["ordenar"] = "DESC";
+			}
 		}
 		$base = (int)($rutas[1] - 1)*12;
 		$tope = 12;
@@ -172,7 +176,7 @@ if($banner != null){
 					echo '<li class="col-md-3 col-sm-6 col-xs-12">
 							<figure>
 
-								<a href="'.$value["ruta"].'" class="pixelProducto">
+								<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 									<img src="'.$servidor.$value["portada"].'" class="img-responsive">
 
@@ -184,7 +188,7 @@ if($banner != null){
 
 								<small>
 
-									<a href="'.$value["ruta"].'" class="pixelProducto">
+									<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 										'.$value["titulo"].'<br><span style="color:rgba(0,0,0,0)">-</span>';
 										if($value["nuevo"] != 0){
@@ -242,7 +246,7 @@ if($banner != null){
 							                </button>';
 										}
 									}
-								echo '<a href="'.$value["ruta"].'" class="pixelProducto">
+								echo '<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 									<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
 
@@ -268,7 +272,7 @@ if($banner != null){
 
 						<figure>
 
-							<a href="'.$value["ruta"].'" class="pixelProducto">
+							<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 									<img src="'.$servidor.$value["portada"].'" class="img-responsive">
 
@@ -284,7 +288,7 @@ if($banner != null){
 
 							<small>
 
-								<a href="'.$value["ruta"].'" class="pixelProducto">
+								<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 									'.$value["titulo"].'<br>';
 
@@ -343,7 +347,7 @@ if($banner != null){
 										}
 									}
 
-					  		echo '<a href="'.$value["ruta"].'" class="pixelProducto">
+					  		echo '<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 						  		<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
 
