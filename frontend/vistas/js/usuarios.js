@@ -1,3 +1,68 @@
+/*=====================================================
+RUTA ACTUAL
+=====================================================*/
+var rutaActual = location.href;
+
+$(".btnIngreso").click(function(){
+	localStorage.setItem("rutaActual",rutaActual);
+});
+
+/*=====================================================
+QUITAR LA ALERTA
+=====================================================*/
+$("input").focus(function(){
+	$(".alert").remove();
+});
+
+/*=============================================
+VALIDAR EMAIL REPETIDO
+=============================================*/
+
+var validarEmailRepetido = false;
+
+$("#regEmail").change(function(){
+
+	var email = $("#regEmail").val();
+
+	var datos = new FormData();
+	datos.append("validarEmail", email);
+
+	$.ajax({
+
+		url:rutaOculta+"ajax/usuarios.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success:function(respuesta){
+
+			if(respuesta == "false"){
+
+				$(".alert").remove();
+				validarEmailRepetido = false;
+
+			}else{
+
+				var modo = JSON.parse(respuesta).modo;
+
+				if(modo == "directo"){
+
+					modo = "esta página";
+				}
+
+				$("#regEmail").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> El correo electrónico ya existe en la base de datos, fue registrado a través de '+modo+', por favor ingrese otro diferente</div>')
+
+					validarEmailRepetido = true;
+
+			}
+
+		}
+
+	})
+
+})
+
 
 /*=============================================
 VALIDAR EL REGISTRO DE USUARIO
@@ -104,3 +169,4 @@ function registroUsuario(){
 
 	return true;
 }
+
