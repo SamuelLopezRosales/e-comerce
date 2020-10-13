@@ -4,7 +4,86 @@ TOP
 <?php
 	$servidor = Ruta::ctrRutaServidor();
 	$url = Ruta::ctrRuta();
+
+/*=============================================
+INICIO DE SESIÓN USUARIO
+=============================================*/
+
+if(isset($_SESSION["validarSesion"])){
+
+  if($_SESSION["validarSesion"] == "ok"){
+
+    echo '<script>
+
+      localStorage.setItem("usuario","'.$_SESSION["id"].'");
+
+    </script>';
+
+  }
+
+}
+
+  /* =======================================================
+  CREAR EL OBJETO DE LA API DE GOOGLE
+  =======================================================*/
+
+$cliente = new Google_Client();
+$cliente->setAuthConfig('modelos/client_secret.json');
+$cliente->setAccessType("offline");
+$cliente->setScopes(['profile','email']);
+
+  /*=============================================================
+  RUTA PARA EL LOGIN DE GOOGLE
+  ============================================================*/
+  $rutaGoogle = $cliente->createAuthUrl();
+
+  /*==============================================================
+  RECIBIMOS LA VARIABLE GET DE GOOGLE LLAMADA CODE
+  ===============================================================*/
+if(isset($_GET["code"])){
+
+  $token = $cliente->authenticate($_GET["code"]);
+
+  $_SESSION['id_token_google'] = $token;
+
+  $cliente->setAccessToken($token);
+
+}
+
+  /*====================================================================
+  RECIBIMOS LOS DATOS CIFRADOS DE GOOGLE EN UN ARRAY
+  =====================================================================*/
+  if($cliente->getAccessToken()){
+
+  $item = $cliente->verifyIdToken();
+
+
+
+ $datos = array("nombre"=>$item["name"],
+           "email"=>$item["email"],
+           "foto"=>$item["picture"],
+           "password"=>"null",
+           "modo"=>"google",
+           "verificacion"=>0,
+           "emailEncriptado"=>"null");
+
+
+  $respuesta = ControladorUsuarios::ctrRegistroRedesSociales($datos);
+
+ echo '<script>
+
+  setTimeout(function(){
+
+    window.location = localStorage.getItem("rutaActual");
+
+  },1000);
+
+  </script>';
+
+}
 ?>
+
+
 
 <div class="container-fluid barraSuperior" id="top">
 
@@ -60,18 +139,34 @@ TOP
 											<img class="img-circle" src="'.$servidor.'vistas/img/usuarios/default/anonymous.png" width="10%">
 										</li>';
 									}
+                  echo '<li>|</li>
+                    <li><a href="'.$url.'perfil">Ver perfil</a></li>
+                    <li>|</li>
+                    <li><a href="'.$url.'salir">Salir</a></li>';
 
-									echo '<li>|</li>
-										<li><a href="'.$url.'perfil">Ver perfil</a></li>
-										<li>|</li>
-										<li><a href="'.$url.'salir">Salir</a></li>';
-								}
+								}if($_SESSION["modo"] == "facebook"){
+                  echo '<li>
+                      <img class="img-circle" src="'.$_SESSION["foto"].'" width="10%">
+                    </li>
+                    <li>|</li>
+                    <li><a href="'.$url.'perfil">Ver perfil</a></li>
+                    <li>|</li>
+                    <li><a href="'.$url.'salir" class="salir">Salir</a></li>';
+                }if($_SESSION["modo"] == "google"){
+                  echo '<li>
+                      <img class="img-circle" src="'.$_SESSION["foto"].'" width="10%">
+                    </li>
+                    <li>|</li>
+                    <li><a href="'.$url.'perfil">Ver perfil</a></li>
+                    <li>|</li>
+                    <li><a href="'.$url.'salir">Salir</a></li>';
+                }
+}
 
-							}
 						}else{
-							echo '<li><a href="#modalIngreso" data-toggle="modal">Ingresar</a></li>
+							echo '<li><a class="btnIngresar" href="#modalIngreso" data-toggle="modal">Ingresar</a></li>
 								  <li>|</li>
-								  <li><a href="#modalRegistro" data-toggle="modal">Crear una cuenta</a></li>';
+								  <li><a class="btnRegistrarse" href="#modalRegistro" data-toggle="modal">Crear una cuenta</a></li>';
 						}
 					?>
 				</ul>
@@ -239,7 +334,7 @@ HEADER
           <!-- =============================================================
           	REGISTRO FACEBOOK
           =================================================================-->
-          <div class="col-sm-6 col-xs-12 facebook" id="btnFacebookRegistro">
+          <div class="col-sm-6 col-xs-12 facebook">
           	<p>
           		<i class="fa fa-facebook"></i>
           		Registro con Facebook
@@ -249,12 +344,14 @@ HEADER
           <!-- =============================================================
           	REGISTRO GOOGLE
           =================================================================-->
-          <div class="col-sm-6 col-xs-12 google" id="btnGoogleRegistro">
+          <a href="<?php echo $rutaGoogle; ?>">
+          <div class="col-sm-6 col-xs-12 google">
           	<p>
           		<i class="fa fa-google"></i>
           		Registro con Google
           	</p>
           </div>
+          </a>
 
            <!-- =============================================================
           	REGISTRO DIRECTO
@@ -339,7 +436,7 @@ HEADER
           <!-- =============================================================
           	REGISTRO FACEBOOK
           =================================================================-->
-          <div class="col-sm-6 col-xs-12 facebook" id="btnFacebookRegistro">
+          <div class="col-sm-6 col-xs-12 facebook">
           	<p>
           		<i class="fa fa-facebook"></i>
           		Ingreso con Facebook
@@ -349,12 +446,14 @@ HEADER
           <!-- =============================================================
           	REGISTRO GOOGLE
           =================================================================-->
-          <div class="col-sm-6 col-xs-12 google" id="btnGoogleRegistro">
+          <a href="<?php echo $rutaGoogle; ?>">
+          <div class="col-sm-6 col-xs-12 google">
           	<p>
           		<i class="fa fa-google"></i>
           		Ingreso con Google
           	</p>
           </div>
+        </a>
 
            <!-- =============================================================
           	REGISTRO DIRECTO

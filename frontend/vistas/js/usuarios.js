@@ -3,7 +3,7 @@ RUTA ACTUAL
 =====================================================*/
 var rutaActual = location.href;
 
-$(".btnIngreso").click(function(){
+$(".btnIngreso, #btnFacebookRegistro, .btnIngresar, .btnRegistrarse").click(function(){
 	localStorage.setItem("rutaActual",rutaActual);
 });
 

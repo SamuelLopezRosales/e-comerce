@@ -467,6 +467,105 @@ class ControladorUsuarios{
 			}
 
 		}
+
+	}
+
+	/*=============================================
+	REGISTRO CON REDES SOCIALES
+	=============================================*/
+
+	static public function ctrRegistroRedesSociales($datos){
+
+		$tabla = "usuarios";
+		$item = "email";
+		$valor = $datos["email"];
+		$emailRepetido = false;
+		$respuesta1 = "";
+
+
+		$respuesta0 = ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+
+		if($respuesta0){
+
+			if($respuesta0["modo"] != $datos["modo"]){
+
+				echo '<script>
+
+						swal({
+							  title: "¡ERROR!",
+							  text: "¡El correo electrónico '.$datos["email"].', ya está registrado en el sistema con un método diferente a Google!",
+							  type:"error",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+							},
+
+							function(isConfirm){
+
+								if(isConfirm){
+									history.back();
+								}
+						});
+
+				</script>';
+
+				$emailRepetido = false;
+
+			}
+
+			$emailRepetido = true;
+
+		}else{
+
+			// hasta aqui ya se registro el usuario
+			$respuesta1 = ModeloUsuarios::mdlRegistroUsuario($tabla, $datos);
+
+		}
+
+		if($emailRepetido || $respuesta1 == "ok"){
+
+			$respuesta2 = ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+
+			if($respuesta2["modo"] == "facebook"){
+
+				session_start();
+
+				$_SESSION["validarSesion"] = "ok";
+				$_SESSION["id"] = $respuesta2["id"];
+				$_SESSION["nombre"] = $respuesta2["nombre"];
+				$_SESSION["foto"] = $respuesta2["foto"];
+				$_SESSION["email"] = $respuesta2["email"];
+				$_SESSION["password"] = $respuesta2["password"];
+				$_SESSION["modo"] = $respuesta2["modo"];
+
+				echo "ok";
+
+			}else if($respuesta2["modo"] == "google"){
+				// hasta aqui si entra
+				//var_dump($respuesta2);
+				$_SESSION["validarSesion"] = "ok";
+				$_SESSION["id"] = $respuesta2["id"];
+				$_SESSION["nombre"] = $respuesta2["nombre"];
+				$_SESSION["foto"] = $respuesta2["foto"];
+				$_SESSION["email"] = $respuesta2["email"];
+				$_SESSION["password"] = $respuesta2["password"];
+				$_SESSION["modo"] = $respuesta2["modo"];
+
+				echo "<span style='color:white'>ok</span>";
+				//echo json_encode($respuesta2);
+
+			}
+
+			else{
+
+				echo "";
+			}
+
+		}
 	}
 
 }
+
+
+
+
+
