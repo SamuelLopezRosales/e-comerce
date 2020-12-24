@@ -89,11 +89,11 @@
 	ACTUALIZAR VISTA PRODUCTO
 	=============================================*/
 
-	static public function ctrActualizarVistaProducto($datos, $item){
+	static public function ctrActualizarProducto($item1, $valor1, $item2, $valor2){
 
 		$tabla = "productos";
 
-		$respuesta = ModeloProducto::mdlActualizarVistaProducto($tabla, $datos, $item);
+		$respuesta = ModeloProducto::mdlActualizarProducto($tabla, $item1, $valor1, $item2, $valor2);
 
 		return $respuesta;
 	}

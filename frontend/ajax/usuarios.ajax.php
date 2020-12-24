@@ -33,6 +33,30 @@
 		echo $respuesta;
 
 	}
+
+	/*======================================================================
+	AGREGAR LISTA DE DESEOS
+	======================================================================*/
+	public $idUsuario;
+	public $idProducto;
+		public function ajaxAgregarDeseo(){
+			$datos =  array(
+				"idUsuario"=>$this->idUsuario,
+				"idProducto"=>$this->idProducto);
+			$respuesta = ControladorUsuarios::ctrAgregarDeseo($datos);
+			echo $respuesta;
+		}
+
+	/*======================================================================
+	AQUITAR EL DESEO
+	======================================================================*/
+	public $idDeseo;
+	public function ajaxQuitarDeseo(){
+			$datos =  $this->idDeseo;
+			$respuesta = ControladorUsuarios::ctrQuitarDeseo($datos);
+			echo $respuesta;
+		}
+
 	}
 
 	/*=========================================================
@@ -58,4 +82,24 @@ if(isset($_POST["email"])){
 	$regFacebook -> foto = $_POST["foto"];
 	$regFacebook -> ajaxRegistroFacebook();
 
+}
+
+
+/*=============================================
+AGREGAR A LISTA DE DESEOS
+=============================================*/
+if(isset($_POST["id_usuario"])){
+	$deseo = new AjaxUsuarios();
+	$deseo->idUsuario = $_POST["id_usuario"];
+	$deseo->idProducto = $_POST["id_producto"];
+	$deseo->ajaxAgregarDeseo();
+}
+
+/*=============================================
+QUITAR A LISTA DE DESEOS
+=============================================*/
+if(isset($_POST["idDeseo"])){
+	$deseo = new AjaxUsuarios();
+	$deseo->idDeseo = $_POST["idDeseo"];
+	$deseo->ajaxQuitarDeseo();
 }

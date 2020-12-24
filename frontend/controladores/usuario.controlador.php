@@ -15,6 +15,7 @@ class ControladorUsuarios{
 
 			   	$datos = array("nombre" => $_POST["regUsuario"],
 			   					"email" => $_POST["regEmail"],
+			   					"foto" => "",
 			   					"password" => $encriptar,
 			   					"modo" => "directo",
 			   					"verificacion" => 1,
@@ -562,6 +563,334 @@ class ControladorUsuarios{
 
 		}
 	}
+
+	/*====================================================================
+	ACTUALIZAR PERFIL
+	==================================================================*/
+
+	public function ctrActualizarPerfil(){
+
+		if(isset($_POST["editarNombre"])){
+			/*=============================================
+			VALIDAR IMAGEN
+			=============================================*/
+
+			$ruta = $_POST["fotoUsuario"];
+
+			if(isset($_FILES["datosImagen"]["tmp_name"]) && !empty($_FILES["datosImagen"]["tmp_name"])){
+
+				/*=============================================
+				PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BD
+				=============================================*/
+
+				$directorio = "vistas/img/usuarios/".$_POST["idUsuario"];
+
+				if(!empty($_POST["fotoUsuario"])){
+
+					unlink($_POST["fotoUsuario"]);
+
+				}else{
+					mkdir($directorio, 0755);
+
+				}
+
+				/*=============================================
+				GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+				=============================================*/
+
+				list($ancho, $alto) = getimagesize($_FILES["datosImagen"]["tmp_name"]);
+
+				$nuevoAncho = 500;
+				$nuevoAlto = 500;
+
+				$aleatorio = mt_rand(100, 999);
+
+				if($_FILES["datosImagen"]["type"] == "image/jpeg"){
+
+					$ruta = "vistas/img/usuarios/".$_POST["idUsuario"]."/".$aleatorio.".jpg";
+
+					/*=============================================
+					MOFICAMOS TAMAÑO DE LA FOTO
+					=============================================*/
+
+
+					$origen = imagecreatefromjpeg($_FILES["datosImagen"]["tmp_name"]);
+
+					$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+					imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+					imagejpeg($destino, $ruta);
+
+				}
+
+				if($_FILES["datosImagen"]["type"] == "image/png"){
+
+					$ruta = "vistas/img/usuarios/".$_POST["idUsuario"]."/".$aleatorio.".png";
+
+					/*=============================================
+					MOFICAMOS TAMAÑO DE LA FOTO
+					=============================================*/
+
+					$origen = imagecreatefrompng($_FILES["datosImagen"]["tmp_name"]);
+
+					$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+					imagealphablending($destino, FALSE);
+
+					imagesavealpha($destino, TRUE);
+
+					imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+					imagepng($destino, $ruta);
+
+				}
+
+			}
+
+			if($_POST["editarPassword"] == ""){
+
+				$password = $_POST["passUsuario"];
+
+			}else{
+
+				$password = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
+			}
+
+
+
+			$datos = array("nombre" => $_POST["editarNombre"],
+						   "email" => $_POST["editarEmail"],
+						   "password" => $password,
+						   "foto" => $ruta,
+						   "id" => $_POST["idUsuario"]);
+
+
+			$tabla = "usuarios";
+
+			$respuesta = ModeloUsuarios::mdlActualizarPerfil($tabla, $datos);
+
+			if($respuesta == "ok"){
+
+				$_SESSION["validarSesion"] = "ok";
+				$_SESSION["id"] = $datos["id"];
+				$_SESSION["nombre"] = $datos["nombre"];
+				$_SESSION["foto"] = $datos["foto"];
+				$_SESSION["email"] = $datos["email"];
+				$_SESSION["password"] = $datos["password"];
+				$_SESSION["modo"] = $_POST["modoUsuario"];
+
+				echo '<script>
+
+						swal({
+							  title: "¡OK!",
+							  text: "¡Su cuenta ha sido actualizada correctamente!",
+							  type:"success",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+							},
+
+							function(isConfirm){
+
+								if(isConfirm){
+									history.back();
+								}
+						});
+
+				</script>';
+
+
+			}
+
+		}
+
+	}
+
+
+
+	/*====================================================================
+	MOSTRAR COMPRAS
+	===================================================================*/
+	static public function ctrMostrarCompras($item, $valor){
+
+		$tabla = "compras";
+
+		$respuesta = ModeloUsuarios::mdlMostrarCompras($tabla, $item, $valor);
+
+		return $respuesta;
+
+	}
+
+	static public function ctrMostrarComentariosPerfil($datos){
+
+		$tabla = "comentarios";
+
+		$respuesta = ModeloUsuarios::mdlMostrarComentariosPerfil($tabla, $datos);
+
+		return $respuesta;
+	}
+
+	/*=============================================
+	ACTUALIZAR COMENTARIOS
+	=============================================*/
+
+	public function ctrActualizarComentario(){
+
+		if(isset($_POST["idComentario"])){
+
+			if(preg_match('/^[,\\.\\a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["comentario"])){
+
+				if($_POST["comentario"] != ""){
+
+					$tabla = "comentarios";
+
+					$datos = array("id"=>$_POST["idComentario"],
+								   "calificacion"=>$_POST["puntuaje"],
+								   "comentario"=>$_POST["comentario"]);
+
+					$respuesta = ModeloUsuarios::mdlActualizarComentario($tabla, $datos);
+
+					if($respuesta == "ok"){
+
+						echo'<script>
+
+								swal({
+									  title: "¡GRACIAS POR COMPARTIR SU OPINIÓN!",
+									  text: "¡Su calificación y comentario ha sido guardado!",
+									  type: "success",
+									  confirmButtonText: "Cerrar",
+									  closeOnConfirm: false
+								},
+
+								function(isConfirm){
+										 if (isConfirm) {
+										   history.back();
+										  }
+								});
+
+							  </script>';
+
+					}
+
+				}else{
+
+					echo'<script>
+
+						swal({
+							  title: "¡ERROR AL ENVIAR SU CALIFICACIÓN!",
+							  text: "¡El comentario no puede estar vacío!",
+							  type: "error",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+						},
+
+						function(isConfirm){
+								 if (isConfirm) {
+								   history.back();
+								  }
+						});
+
+					  </script>';
+
+				}
+
+			}else{
+
+				echo'<script>
+
+					swal({
+						  title: "¡ERROR AL ENVIAR SU CALIFICACIÓN!",
+						  text: "¡El comentario no puede llevar caracteres especiales!",
+						  type: "error",
+						  confirmButtonText: "Cerrar",
+						  closeOnConfirm: false
+					},
+
+					function(isConfirm){
+							 if (isConfirm) {
+							   history.back();
+							  }
+					});
+
+				  </script>';
+
+			}
+
+		}
+
+	}
+
+	/*====================================================================
+	AGREGAR DESEO
+	======================================================================*/
+	static public function ctrAgregarDeseo($datos){
+		$tabla = "deseos";
+		$respuesta = ModeloUsuarios::mdlAgregarDeseo($tabla, $datos);
+		return $respuesta;
+	}
+
+	/*====================================================================
+	Mostrar DESEOS
+	======================================================================*/
+	static public function ctrMostrarDeseos($item){
+		$tabla = "deseos";
+		$respuesta = ModeloUsuarios::mdlMostrarDeseos($tabla, $item);
+		return $respuesta;
+	}
+
+	/*====================================================================
+	QUITAR DESEOS
+	======================================================================*/
+	static public function ctrQuitarDeseo($datos){
+		$tabla = "deseos";
+
+		$respuesta = ModeloUsuarios::mdlQuitarDeseo($tabla, $datos);
+		return $respuesta;
+	}
+
+	/*====================================================================
+	QUITAR DESEOS
+	======================================================================*/
+	static public function ctrEliminarUsuario(){
+		if(isset($_GET["id"])){
+			$tabla1 = "usuarios";
+			$tabla2 = "comentarios";
+			$tabla3 = "compras";
+			$tabla4 = "deseos";
+			$id = $_GET["id"];
+
+			if($_GET["foto"] != ""){
+				unlink($_GET["foto"]);
+				rmdir('vistas/img/usuarios/'.$_GET["id"]);
+			}
+
+			$respuesta = ModeloUsuarios::mdlEliminarUsuario($tabla1, $id);
+			ModeloUsuarios::mdlEliminarComentarios($tabla2, $id);
+			ModeloUsuarios::mdlEliminarCompras($tabla3, $id);
+			ModeloUsuarios::mdlEliminarListaDeseos($tabla4, $id);
+
+			if($respuesta == "ok"){
+		    	$url = Ruta::ctrRuta();
+		    	echo'<script>
+						swal({
+							  title: "¡SU CUENTA HA SIDO BORRADA!",
+							  text: "¡Debe registrarse nuevamente si desea ingresar!",
+							  type: "success",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+						},
+						function(isConfirm){
+								 if (isConfirm) {
+								   window.location = "'.$url.'salir";
+								  }
+						});
+					  </script>';
+
+		    }
+		}
+	}
+
 
 }
 

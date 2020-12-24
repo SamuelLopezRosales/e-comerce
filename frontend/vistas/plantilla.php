@@ -51,6 +51,10 @@
 
 	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/infoproducto.css">
 
+	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/perfil.css">
+
+	<link rel="stylesheet" href="<?php echo $url; ?>vistas/css/carrito-de-compras.css">
+
 	<!-- ============================================================================
 		PLUGIN JQUERY
 	===============================================================================-->
@@ -118,7 +122,7 @@
 				include_once "modulos/productos.php";
 			}else if($infoProducto != null){
 				include_once "modulos/infoproducto.php";
-			}else if($rutas[0] == "buscador" || $rutas[0] == "verificar" || $rutas[0] == "salir"){
+			}else if($rutas[0] == "buscador" || $rutas[0] == "verificar" || $rutas[0] == "salir" || $rutas[0] == "perfil" || $rutas[0] == "carrito-de-compras" || $rutas[0] == "error" || $rutas[0] == "finalizar-compra" || $rutas[0] == "curso"){
 				include_once "modulos/".$rutas[0].".php";
 			}else{
 				include_once "modulos/error404.php";
@@ -139,6 +143,7 @@
 	<script src="<?php echo $url; ?>vistas/js/infoproducto.js"></script>
 	<script src="<?php echo $url; ?>vistas/js/usuarios.js"></script>
 	<script src="<?php echo $url; ?>vistas/js/registroFacebook.js"></script>
+	<script src="<?php echo $url; ?>vistas/js/carrito-de-compras.js"></script>
 
 	<script>
   		window.fbAsyncInit = function() {

@@ -170,3 +170,288 @@ function registroUsuario(){
 	return true;
 }
 
+
+/*=============================================
+CAMBIAR IMAGEN
+=============================================*/
+$("#btnCambiarFoto").click(function(){
+	$("#imgPerfil").toggle();
+	$("#subirImagen").toggle();
+});
+
+$("#datosImagen").change(function(){
+	var imagen = this.files[0];
+	console.log("imagen", imagen);
+	/*=========================================
+	VALIDAMOS EL FORMATO DE LA IMAGEN
+	========================================*/
+	if(imagen["type"] != "image/jpeg"){
+		$("#datosImagen").val("");
+		swal({
+			 title: "¡ERROR!",
+			 text: "¡La imagen debe estar en formato JPG!",
+			 type:"error",
+			 confirmButtonText: "Cerrar",
+			 closeOnConfirm: false
+			 },
+
+			function(isConfirm){
+				if(isConfirm){
+						window.location = rutaOculta+"perfil";
+						}
+				});
+		/*=====================================================0
+		VALIDAMOS SI LA IMAGEN ES MAYOR EN PESO
+		=======================================================*/
+	}else if(Number(imagen["size"]) > 2000000){
+		$("#datosImagen").val("");
+		swal({
+			 title: "¡ERROR!",
+			 text: "¡La imagen no debe pesar mas de 2 mb!",
+			 type:"error",
+			 confirmButtonText: "Cerrar",
+			 closeOnConfirm: false
+			 },
+
+			function(isConfirm){
+				if(isConfirm){
+						window.location = rutaOculta+"perfil";
+						}
+				});
+	}else{
+		var datosImagen = new FileReader;
+		datosImagen.readAsDataURL(imagen);
+
+		$(datosImagen).on("load", function(event){
+			var rutaImagen = event.target.result;
+			$(".previsualizar").attr("src", rutaImagen);
+		});
+	}
+});
+
+/* =====================================================
+CALIFICAR COMENTARIO
+=========================================================== */
+$(".calificarProducto").click(function(){
+	var idComentario = $(this).attr("idComentario");
+
+	console.log(idComentario);
+
+	$("#idComentario").val(idComentario);
+});
+
+/*=========================================================
+CAMBIAR ESTRELLA
+=========================================================*/
+$("input[name='puntuaje']").change(function(){
+	var puntuaje = $(this).val();
+	switch(puntuaje){
+
+		case "0.5":
+		$("#estrellas").html('<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "1.0":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "1.5":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "2.0":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "2.5":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "3.0":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "3.5":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "4.0":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "4.5":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i>');
+		break;
+
+		case "5.0":
+		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
+							 '<i class="fa fa-star text-success" aria-hidden="true"></i>');
+		break;
+
+	}
+});
+
+/*=============================================
+VALIDAR EL COMENTARIO
+=============================================*/
+
+function validarComentario(){
+
+	var comentario = $("#comentario").val();
+
+	if(comentario != ""){
+
+		var expresion = /^[,\\.\\a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$/;
+
+		if(!expresion.test(comentario)){
+
+			$("#comentario").parent().before('<div class="alert alert-danger"><strong>ERROR:</strong> No se permiten caracteres especiales como por ejemplo !$%&/?¡¿[]*</div>');
+
+			return false;
+
+		}
+
+	}else{
+
+		$("#comentario").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> Campo obligatorio</div>');
+
+		return false;
+
+	}
+
+	return true;
+
+}
+
+/*=======================================================================
+LISTA DE DESEOS
+========================================================================*/
+$(".deseos").click(function(){
+	var idProducto = $(this).attr("idProducto");
+	var idUsuario = localStorage.getItem("usuario");
+	if(idUsuario == null){
+		swal({
+		  title: "Debe ingresar al sistema",
+		  text: "¡Para agregar un producto a la 'lista de deseos' debe primero ingresar al sistema!",
+		  type: "warning",
+		  confirmButtonText: "¡Cerrar!",
+		  closeOnConfirm: false
+		},
+		function(isConfirm){
+				 if (isConfirm) {
+				    window.location = rutaOculta;
+				  }
+		});
+
+	}else{
+		$(this).addClass("btn-danger");
+		var datos = new FormData();
+		datos.append("id_usuario",idUsuario);
+		datos.append("id_producto",idProducto);
+		$.ajax({
+			url:rutaOculta+"ajax/usuarios.ajax.php",
+			method:"POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success:function(respuesta){
+				console.log(respuesta);
+			}
+		});
+	}
+});
+
+
+/*===================================================
+QUITAR EL DESEO DE LA PANTALLA
+===================================================*/
+$(".quitarDeseo").click(function(){
+	var idDeseo = $(this).attr("idDeseo");
+
+	$(this).parent().parent().parent().remove();
+	var datos = new FormData();
+		datos.append("idDeseo",idDeseo);
+		$.ajax({
+			url:rutaOculta+"ajax/usuarios.ajax.php",
+			method:"POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success:function(respuesta){
+				console.log(respuesta);
+			}
+		});
+});
+
+
+/*=============================================
+ELIMINAR USUARIO
+=============================================*/
+
+$("#eliminarUsuario").click(function(){
+	var id = $("#idUsuario").val();
+	if($("#modoUsuario").val() == "directo"){
+		if($("#fotoUsuario").val() != ""){
+			var foto = $("#fotoUsuario").val();
+		 }
+		}
+		swal({
+		  title: "¿Está usted seguro(a) de eliminar su cuenta?",
+		  text: "¡Si borrar esta cuenta ya no se puede recuperar los datos!",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#DD6B55",
+		  confirmButtonText: "¡Si, borrar cuenta!",
+		  closeOnConfirm: false
+		},
+		function(isConfirm){
+				 if (isConfirm) {
+				    window.location = "index.php?ruta=perfil&id="+id+"&foto="+foto;
+				  }
+		});
+
+})
+
+
+
