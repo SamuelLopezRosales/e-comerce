@@ -15,4 +15,10 @@ class ControladorPlantilla{
 
 		return $respuesta;
 	}
+
+	static public function ctrTraerCabeceras($ruta){
+		$tabla = "cabeceras";
+		$respuesta = ModeloPlantilla::mdlTraerCabeceras($tabla, $ruta);
+		return $respuesta;
+	}
 }

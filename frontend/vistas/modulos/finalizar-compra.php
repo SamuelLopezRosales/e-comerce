@@ -14,6 +14,7 @@ if(!isset($_SESSION["validarSesion"])){
 require 'extensiones/bootstrap.php';
 require_once "modelos/carrito.modelo.php";
 
+
 #importamos librería del SDK
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
@@ -177,7 +178,7 @@ if(isset( $_GET['paypal']) && $_GET['paypal'] === 'true'){
          $item = "id";
          $valor = $productos[$i];
 
-         $productosCompra = ControladorProductos::ctrListarProductos($ordenar, $item, $valor);
+         $productosCompra = ProductoControlador::ctrListarProductos($ordenar, $item, $valor);
 
          foreach ($productosCompra as $key => $value) {
 
@@ -186,7 +187,7 @@ if(isset( $_GET['paypal']) && $_GET['paypal'] === 'true'){
             $item2 = "id";
             $valor2 =$value["id"];
 
-            $actualizarCompra = ControladorProductos::ctrActualizarProducto($item1, $valor1, $item2, $valor2);
+            $actualizarCompra = ProductoControlador::ctrActualizarProducto($item1, $valor1, $item2, $valor2);
 
          }
 
@@ -212,7 +213,50 @@ if(isset( $_GET['paypal']) && $_GET['paypal'] === 'true'){
 /*=============================================
 ADQUISICIONES GRATUITAS
 =============================================*/
-else{
+else if(isset( $_GET['gratis']) && $_GET['gratis'] === 'true'){
+
+   $producto = $_GET['producto'];
+   $titulo = $_GET['titulo'];
+
+   $datos = array(  "idUsuario"=>$_SESSION["id"],
+                    "idProducto"=>$producto,
+                    "metodo"=>"gratis",
+                    "email"=>$_SESSION["email"],
+                    "direccion"=>"",
+                    "pais"=>"",
+                    "cantidad"=>"",
+                    "detalle"=>"",
+                    "pago"=>"");
+
+   $respuesta = ControladorCarrito::ctrNuevasCompras($datos);
+
+   $ordenar = "id";
+   $item = "id";
+   $valor = $producto;
+
+   $productosGratis = ProductoControlador::ctrListarProductos($ordenar, $item, $valor);
+
+   foreach ($productosGratis as $key => $value) {
+
+         $item1 = "ventasGratis";
+         $valor1 = $value["ventasGratis"] + 1;
+         $item2 = "id";
+         $valor2 =$value["id"];
+
+         $actualizarSolicitud = ProductoControlador::ctrActualizarProducto($item1, $valor1, $item2, $valor2);
+   }
+
+   if($respuesta == "ok" && $actualizarSolicitud == "ok"){
+
+      echo '<script>
+
+            window.location = "'.$url.'ofertas/aviso";
+
+         </script>';
+
+   }
+
+}else{
 
 
 

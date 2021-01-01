@@ -1,6 +1,12 @@
 <?php
 
 require_once "../extensiones/paypal.controlador.php";
+require_once "../controladores/carrito.controlador.php";
+require_once "../modelos/carrito.modelo.php";
+
+require_once "../controladores/productos.controlador.php";
+require_once "../modelos/productos.modelo.php";
+
 
 class AjaxCarrito{
 	/*=============================================
@@ -32,6 +38,20 @@ class AjaxCarrito{
 		$respuesta = Paypal::mdlPagoPaypal($datos);
 		echo $respuesta;
 	}
+
+	/* =====================================================0
+	VERIFICAR QUE NO TENGA EL PRODUCTO YA COMPRADO
+	=======================================================*/
+	public $idProducto;
+	public $idUsuario;
+	public function ajaxVerificarProducto(){
+		$datos = array("idUsuario"=> $this->idUsuario,
+						"idProducto"=> $this->idProducto);
+
+		$respuesta = ControladorCarrito::ctrVerificarProducto($datos);
+
+		echo json_encode($respuesta);
+	}
 }
 
 
@@ -50,4 +70,14 @@ if(isset($_POST["divisa"])){
 	$paypal->valorItemArray= $_POST["valorItemArray"];
 	$paypal->idProductoArray= $_POST["idProductoArray"];
 	$paypal->ajaxEnviarPaypal();
+}
+
+/* =====================================================
+VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
+=======================================================*/
+if(isset($_POST["idProducto"])){
+	$producto = new AjaxCarrito();
+	$producto->idProducto = $_POST["idProducto"];
+	$producto->idUsuario = $_POST["idUsuario"];
+	$producto->ajaxVerificarProducto();
 }

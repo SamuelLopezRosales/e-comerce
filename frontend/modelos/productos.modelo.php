@@ -25,10 +25,17 @@
 		mostrar subcategorias
 		=======================================*/
 		static public function mdlMostrarSubCategorias($tabla, $item, $valor){
+			if($item != null){
 			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
+			}else{
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetchAll();
+			}
 			$stmt->close();
 			$stmt = null;
 		}
