@@ -20,6 +20,7 @@ class Paypal{
 		$cantidadProductos = str_replace(",","-", $datos["cantidadArray"]);
 		$pagoProductos = str_replace(",","-", $datos["valorItemArray"]);
 
+
 		# SELECCIONAR EL METODO DE PAYPAL
 		$payer = new Payer();
 		$payer->setPaymentMethod("paypal");
@@ -66,6 +67,7 @@ class Paypal{
 		// payment approval/ cancellation.
 
     	$url = Ruta::ctrRuta();
+    	//$pago =$datos["subtotal"];
 		$redirectUrls = new RedirectUrls();
 		// pagina que retorna cuando el pago sea exitoso
 		$redirectUrls->setReturnUrl("$url"."index.php?ruta=finalizar-compra&paypal=true&productos=".$idProductos."&cantidad=".$cantidadProductos."&pago=".$pagoProductos)
