@@ -104,12 +104,13 @@ if(isset($_GET["code"])){
 					$jsonRedesSociales = json_decode($social["redesSociales"],true);
 
 					foreach ($jsonRedesSociales as $key => $value) {
-
+            if($value["activo"] != 0){
 						echo '<li>
 								<a href="'.$value["url"].'" target="_blank">
-									<i class="fa '.$value["red"].' redSocial '.$value["estilo"].'" aria-hidden="true"></i>
+									<i class="fa '.$value["red"].' '.$value["estilo"].' redSocial"></i>
 								</a>
 							</li>';
+            }
 					}
 					?>
 
@@ -231,7 +232,7 @@ HEADER
 
 				<div class="input-group col-lg-8 col-md-8 col-sm-8 col-xs-12" id="buscador">
 
-					<input type="search" name="buscar" class="form-control" placeholder="Buscar...">
+					<input type="search" name="buscar" class="form-control input-lg" placeholder="Buscar...">
 
 					<span class="input-group-btn">
 
@@ -364,7 +365,7 @@ HEADER
           			<span class="input-group-addon">
           				<i class="glyphicon glyphicon-user"></i>
           			</span>
-          			<input type="text" class="form-control" id="regUsuario" name="regUsuario" placeholder="Nombre completo" required>
+          			<input type="text" class="form-control input-lg" id="regUsuario" name="regUsuario" placeholder="Nombre completo" required>
           		</div>
           	</div>
 
@@ -373,7 +374,7 @@ HEADER
           			<span class="input-group-addon">
           				<i class="glyphicon glyphicon-envelope"></i>
           			</span>
-          			<input type="email" class="form-control" id="regEmail" name="regEmail" placeholder="Correo Electrónico" required>
+          			<input type="email" class="form-control input-lg" id="regEmail" name="regEmail" placeholder="Correo Electrónico" required>
           		</div>
           	</div>
 
@@ -382,7 +383,7 @@ HEADER
           			<span class="input-group-addon">
           				<i class="glyphicon glyphicon-lock"></i>
           			</span>
-          			<input type="password" class="form-control" id="regPassword" name="regPassword" placeholder="Contraseña" required>
+          			<input type="password" class="form-control input-lg" id="regPassword" name="regPassword" placeholder="Contraseña" required>
           		</div>
           	</div>
 
@@ -467,7 +468,7 @@ HEADER
           			<span class="input-group-addon">
           				<i class="glyphicon glyphicon-envelope"></i>
           			</span>
-          			<input type="email" class="form-control" id="ingEmail" name="ingEmail" placeholder="Correo Electrónico" required>
+          			<input type="email" class="form-control input-lg" id="ingEmail" name="ingEmail" placeholder="Correo Electrónico" required>
           		</div>
           	</div>
 
@@ -476,7 +477,7 @@ HEADER
           			<span class="input-group-addon">
           				<i class="glyphicon glyphicon-lock"></i>
           			</span>
-          			<input type="password" class="form-control" id="ingPassword" name="ingPassword" placeholder="Contraseña" required>
+          			<input type="password" class="form-control input-lg" id="ingPassword" name="ingPassword" placeholder="Contraseña" required>
           		</div>
           	</div>
           <?php
@@ -484,7 +485,7 @@ HEADER
           	 $usuarioControlador->ctrIngresoUsuario();
 
           ?>
-          <input type="submit" class="btn btn-default backColor btn-block btnIngreso" value="ENVIAR">
+          <input type="submit" class="btn btn-default backColor btn-block btnIngreso input-lg" value="ENVIAR">
           <br>
           <center>
             <a href="#modalPassword" data-dismiss="modal" data-toggle="modal">¿Olvidaste tu contraseña?
@@ -530,7 +531,7 @@ HEADER
                 <span class="input-group-addon">
                   <i class="glyphicon glyphicon-envelope"></i>
                 </span>
-                <input type="email" class="form-control" id="passEmail" name="passEmail" placeholder="Correo Electrónico" required>
+                <input type="email" class="form-control input-lg" id="passEmail" name="passEmail" placeholder="Correo Electrónico" required>
               </div>
             </div>
 
@@ -539,7 +540,7 @@ HEADER
              $usuarioControlador->ctrOlvidoPassword();
 
           ?>
-          <input type="submit" class="btn btn-default backColor btn-block" value="ENVIAR">
+          <input type="submit" class="btn btn-default backColor btn-block input-lg" value="ENVIAR">
 
           </form>
 

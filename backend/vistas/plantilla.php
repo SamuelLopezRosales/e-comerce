@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -10,6 +13,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Plantilla administrativa | Tienda Online</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- =====================================================================
+    PLUGINGS CSS
+  ========================================================================-->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="vistas/bower_components/font-awesome/css/font-awesome.min.css">
@@ -28,32 +34,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jvectormap -->
   <link rel="stylesheet" href="vistas/bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="vistas/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+
+  <!-- bootstrap slider -->
+  <link rel="stylesheet" href="vistas/plugins/bootstrap-slider/slider.css">
+  <!-- plantilla.css-->
+  <link rel="stylesheet" href="vistas/css/plantilla.css">
+   <!-- slide.css-->
+  <link rel="stylesheet" href="vistas/css/slide.css">
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- =====================================================================
+  CSS PERSONALIZADO
+  ========================================================================-->
+
   <!-- =================================================================
-    PLUGINGS
+    PLUGINGS JAVASCRIPT
   ======================================================================-->
   <!-- jQuery 3 -->
 <script src="vistas/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- ACTIVAR JQUERY IU -->
+<script src="vistas/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="vistas/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="vistas/dist/js/adminlte.min.js"></script>
 
 <script src="vistas/plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-    $('.knob').knob();
-    $('.sidebar-menu').tree();
-  });
-</script>
+
 
 <!-- Morris.js charts -->
 <script src="vistas/bower_components/raphael/raphael.min.js"></script>
@@ -65,12 +76,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="vistas/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- ChartJS -->
 <script src="vistas/bower_components/Chart.js/Chart.js"></script>
+<!-- SweetAlert 2 -->
+<script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
+
+  <!-- bootstrap color picker https://farbelous.github.io/bootstrap-colorpicker/v2/-->
+  <script src="vistas/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+
+
+  <!-- Bootstrap slider http://seiyria.com/bootstrap-slider/-->
+  <script src="vistas/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini login-page">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
 
 <?php
-  session_start();
   if(isset($_SESSION["validarSesionBackend"]) && $_SESSION["validarSesionBackend"] === "ok"){
     echo '<div class="wrapper">';
     /*======================================
@@ -113,6 +132,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 ?>
 
-
+<!-- ======================================================
+  JAVASCRIPT PERSONALIZADO
+=========================================================-->
+<script src="vistas/js/plantilla.js" type="text/javascript"></script>
+<script src="vistas/js/gestorComercio.js" type="text/javascript"></script>
+<script src="vistas/js/gestorSlide.js" type="text/javascript"></script>
 </body>
 </html>
