@@ -173,6 +173,7 @@ if($banner != null){
 	}else{
 		echo '<ul class="grid0">';
 		foreach ($productos as $key => $value) {
+				if($value["estado"] != 0){
 					echo '<li class="col-md-3 col-sm-6 col-xs-12">
 							<figure>
 
@@ -191,7 +192,10 @@ if($banner != null){
 									<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 										'.$value["titulo"].'<br><span style="color:rgba(0,0,0,0)">-</span>';
-										if($value["nuevo"] != 0){
+										$fecha = date('Y-m-d');
+										$fechaActual = strtotime('-30 day', strtotime($fecha));
+										$fechaNueva = date('Y-m-d',$fechaActual);
+										if($fechaNueva < $value["nuevo"]){
 											echo '<span class="label label-warning fontSize">Nuevo</span> ';
 										}
 
@@ -262,10 +266,12 @@ if($banner != null){
 
 			</li>';
 				}
+				}
 			echo '</ul>
 
 			<ul class="list0" style="display:none">';
 			foreach ($productos as $key => $value) {
+				if($value["estado"] != 0){
 				echo '<li class="col-xs-12">
 
 			  		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
@@ -292,7 +298,10 @@ if($banner != null){
 
 									'.$value["titulo"].'<br>';
 
-									if($value["nuevo"] != 0){
+										$fecha = date('Y-m-d');
+										$fechaActual = strtotime('-30 day', strtotime($fecha));
+										$fechaNueva = date('Y-m-d',$fechaActual);
+										if($fechaNueva < $value["nuevo"]){
 											echo '<span class="label label-warning">Nuevo</span> ';
 										}
 
@@ -362,7 +371,7 @@ if($banner != null){
 					</div>
 					<div class="col-xs-12"><hr></div>
 				</li>';
-
+			}
 			}
 
 		echo '</ul>';

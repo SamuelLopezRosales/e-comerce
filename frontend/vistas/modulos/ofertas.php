@@ -77,6 +77,7 @@ BREADCRUMB INFOPRODUCTOS
 				$respuesta = ProductoControlador::ctrMostrarCategorias($item, $valor);
 
 				foreach ($respuesta as $key => $value) {
+					if($value["estado"]){
 					# code...
 					if($value["oferta"] == 1){
 						if($value["finOferta"] > $fecha){
@@ -121,6 +122,7 @@ BREADCRUMB INFOPRODUCTOS
 						</div>';
 					}
 				}
+			}
 				}
 
 				/*==========================================================
@@ -129,6 +131,7 @@ BREADCRUMB INFOPRODUCTOS
 				$respuestaSubcategorias = ProductoControlador::ctrMostrarSubCategorias($item, $valor);
 
 				foreach ($respuestaSubcategorias as $key => $value) {
+					if($value["estado"] != 0){
 					# code...
 					if($value["oferta"] == 1 && $value["ofertadoPorCategoria"] == 0){
 						if($value["finOferta"] > $fecha){
@@ -173,6 +176,7 @@ BREADCRUMB INFOPRODUCTOS
 						</div>';
 					}
 				}
+			}
 				}
 
 
@@ -183,6 +187,7 @@ BREADCRUMB INFOPRODUCTOS
 				$respuestaProductos = ProductoControlador::ctrListarProductos($ordenar,$item, $valor);
 
 				foreach ($respuestaProductos as $key => $value) {
+					if($value["estado"] != 0){
 					# code...
 					if($value["oferta"] == 1 && $value["ofertadoPorCategoria"] == 0 && $value["ofertadoPorSubCategoria"] == 0){
 						if($value["finOferta"] > $fecha){
@@ -227,6 +232,7 @@ BREADCRUMB INFOPRODUCTOS
 						</div>';
 					}
 				}
+			}
 				}
 			?>
 		</div>

@@ -48,7 +48,7 @@
 	MARCADO FACEBOOK OPEN GRAPH
 	=====================================-->
 	<meta property="og:title" content="<?php echo $cabeceras['titulo']; ?>">
-	<meta property="og:url" content="<?php echo $url.$cabeceras['ruta']; ?>">
+	<meta property="og:url" content="<?php echo $servidor.$cabeceras['ruta']; ?>">
 	<meta property="og:description" content="<?php echo $cabeceras['descripcion']; ?>">
 	<meta property="og:image" content="<?php echo $cabeceras['portada']; ?>">
 	<meta property="og:type" content="website">
@@ -59,7 +59,7 @@
 	MARCADO ESTRUCTURAL PARA GOOGLE
 	=====================================-->
 	<meta itemprop="name" content="<?php echo $cabeceras['titulo']; ?>">
-	<meta itemprop="url" content="<?php echo $url.$cabeceras['ruta']; ?>">
+	<meta itemprop="url" content="<?php echo $servidor.$cabeceras['ruta']; ?>">
 	<meta itemprop="description" content="<?php echo $cabeceras['descripcion']; ?>">
 	<meta itemprop="image" content="<?php echo $cabeceras['portada']; ?>">
 
@@ -68,7 +68,7 @@
 	=====================================-->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="<?php echo $cabeceras['titulo']; ?>">
-	<meta name="twitter:url" content="<?php echo $url.$cabeceras['ruta']; ?>">
+	<meta name="twitter:url" content="<?php echo $servidor.$cabeceras['ruta']; ?>">
 	<meta name="twitter:description" content="<?php echo $cabeceras['descripcion']; ?>">
 	<meta name="twitter:image" content="<?php echo $cabeceras['portada']; ?>">
 	<meta name="twitter:site" content="@tu_usuario">
@@ -154,7 +154,7 @@
 			URL'S AMIGABLES DE CATEGORIAS
 			=============================================*/
 			$rutaCategorias = ProductoControlador::ctrMostrarCategorias($item,$valor);
-			if($valor == $rutaCategorias["ruta"]){
+			if($valor == $rutaCategorias["ruta"] && $rutaCategorias["estado"] == 1){
 				$ruta = $valor;
 			}
 
@@ -164,7 +164,7 @@
 			$rutaSubCategorias = ProductoControlador::ctrMostrarSubCategorias($item,$valor);
 
 			foreach ($rutaSubCategorias as $key => $value) {
-				if($valor == $value["ruta"]){
+				if($valor == $value["ruta"] && $value["estado"] == 1){
 				$ruta = $valor;
 				}
 			}
@@ -173,7 +173,7 @@
 			URL'S AMIGABLES DE PRODUCTOS
 			=============================================*/
 			$rutaProductos = ProductoControlador::ctrMostrarInfoProducto($item, $valor);
-			if($rutas[0] == $rutaProductos["ruta"]){
+			if($rutas[0] == $rutaProductos["ruta"] && $rutaProductos["estado"] == 1){
 				$infoProducto = $rutas[0];
 			}
 			/*=============================================

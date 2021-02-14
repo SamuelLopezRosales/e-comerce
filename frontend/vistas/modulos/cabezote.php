@@ -280,10 +280,12 @@ HEADER
 
 		<div class="col-xs-12 backColor" id="categorias">
 			<?php
+
 					$item = null;
 					$valor = null;
 					$categorias = ProductoControlador::ctrMostrarCategorias($item,$valor);
 					foreach ($categorias as $key => $value) {
+            if($value["estado"] != 0){
 						# code...
 						echo '<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
 						<h4>
@@ -300,7 +302,9 @@ HEADER
 				$subCategorias = ProductoControlador::ctrMostrarSubCategorias($item,$valor);
 
 				foreach ($subCategorias as $key => $value) {
+          if($value["estado"] != 0){
 					echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
+          }
 				}
 
 
@@ -308,6 +312,7 @@ HEADER
 				</ul>
 
 			</div>';
+    }
 
 					}
 

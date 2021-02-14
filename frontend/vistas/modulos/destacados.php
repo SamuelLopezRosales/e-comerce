@@ -39,16 +39,16 @@
 
 	if($titulosModulos[1]== "LO MÁS VENDIDO"){
 		$ordenar = "ventas";
-		$item = null;
-		$valor = null;
+		$item = "estado";
+		$valor = 1;
 		$modo = "DESC";
 		$ventas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope, $modo);
 	}
 
 	if($titulosModulos[2]== "LO MÁS VISTO"){
 		$ordenar = "vistas";
-		$item = null;
-		$valor = null;
+		$item = "estado";
+		$valor = 1;
 		$modo = "DESC";
 		$vistas = ProductoControlador::ctrMostrarProductos($ordenar, $item, $valor, $base, $tope, $modo);
 	}
@@ -128,6 +128,7 @@
 
 			<ul class="grid'.$i.'">';
 				foreach ($modulos[$i] as $key => $value) {
+					if($value["estado"] != 0){
 					echo '<li class="col-md-3 col-sm-6 col-xs-12">
 							<figure>
 
@@ -146,7 +147,10 @@
 									<a href="'.$value["ruta"].'" class="pixelProducto">
 
 										'.$value["titulo"].'<br><span style="color:rgba(0,0,0,0)">-</span>';
-										if($value["nuevo"] != 0){
+										$fecha = date('Y-m-d');
+										$fechaActual = strtotime('-30 day', strtotime($fecha));
+										$fechaNueva = date('Y-m-d',$fechaActual);
+										if($fechaNueva < $value["nuevo"]){
 											echo '<span class="label label-warning fontSize">Nuevo</span> ';
 										}
 
@@ -216,11 +220,13 @@
 				</div>
 
 			</li>';
+		}
 				}
 			echo '</ul>
 
 			<ul class="list'.$i.'" style="display:none">';
 			foreach ($modulos[$i] as $key => $value) {
+				if($value["estado"] != 0){
 				echo '<li class="col-xs-12">
 
 			  		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
@@ -247,7 +253,10 @@
 
 									'.$value["titulo"].'<br>';
 
-									if($value["nuevo"] != 0){
+										$fecha = date('Y-m-d');
+										$fechaActual = strtotime('-30 day', strtotime($fecha));
+										$fechaNueva = date('Y-m-d',$fechaActual);
+										if($fechaNueva < $value["nuevo"]){
 											echo '<span class="label label-warning">Nuevo</span> ';
 										}
 
@@ -317,7 +326,7 @@
 					</div>
 					<div class="col-xs-12"><hr></div>
 				</li>';
-
+			}
 			}
 
 		echo '</ul>

@@ -37,6 +37,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Bootstrap Color Picker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+
+  <!-- bootstrap tags input -->
+  <link rel="stylesheet" href="vistas/plugins/tags/bootstrap-tagsinput.css">
+
   <!-- bootstrap slider -->
   <link rel="stylesheet" href="vistas/plugins/bootstrap-slider/slider.css">
   <!-- plantilla.css-->
@@ -46,6 +53,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <!-- Dropzone -->
+  <link rel="stylesheet" href="vistas/plugins/dropzone/dropzone.css">
 
   <!-- =====================================================================
   CSS PERSONALIZADO
@@ -82,9 +92,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- bootstrap color picker https://farbelous.github.io/bootstrap-colorpicker/v2/-->
   <script src="vistas/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
+     <!-- bootstrap datetimepicker http://bootstrap-datepicker.readthedocs.io-->
+  <script src="vistas/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+   <!-- Dropzone http://www.dropzonejs.com/-->
+  <script src="vistas/plugins/dropzone/dropzone.js"></script>
+
 
   <!-- Bootstrap slider http://seiyria.com/bootstrap-slider/-->
   <script src="vistas/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+
+   <!-- DataTables https://datatables.net/-->
+  <script src="vistas/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
+  <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+
+  <!-- bootstrap tags input https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/-->
+  <script src="vistas/plugins/tags/bootstrap-tagsinput.min.js"></script>
+
+   <!-- Dropzone http://www.dropzonejs.com/-->
+  <script src="vistas/plugins/dropzone/dropzone.js"></script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
@@ -138,5 +167,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="vistas/js/plantilla.js" type="text/javascript"></script>
 <script src="vistas/js/gestorComercio.js" type="text/javascript"></script>
 <script src="vistas/js/gestorSlide.js" type="text/javascript"></script>
+<script src="vistas/js/gestorCategorias.js" type="text/javascript"></script>
+<script src="vistas/js/gestorSubCategorias.js" type="text/javascript"></script>
+<script src="vistas/js/gestorProductos.js" type="text/javascript"></script>
 </body>
 </html>

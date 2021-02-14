@@ -11,6 +11,8 @@ require_once "controladores/usuarios.controlador.php";
 require_once "controladores/mensajes.controlador.php";
 require_once "controladores/perfiles.controlador.php";
 require_once "controladores/productos.controlador.php";
+require_once "controladores/subcategorias.controlador.php";
+require_once "controladores/cabeceras.controlador.php";
 
 require_once "modelos/administradores.modelo.php";
 require_once "modelos/comercio.modelo.php";
@@ -23,6 +25,8 @@ require_once "modelos/usuarios.modelo.php";
 require_once "modelos/mensajes.modelo.php";
 require_once "modelos/perfiles.modelo.php";
 require_once "modelos/productos.modelo.php";
+require_once "modelos/subcategorias.modelo.php";
+require_once "modelos/cabeceras.modelo.php";
 require_once "modelos/rutas.php";
 
 $plantilla = new ControladorPlantilla();

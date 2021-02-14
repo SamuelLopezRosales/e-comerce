@@ -108,6 +108,7 @@
 	}
 
 	if(!$productos){
+		$estado = 0;
 		echo '<div class="col-xs-12 text-center error404">
 				<h1><small>¡Ooops!</small></h1>
 				<h2>Aún no hay productos en está sección</h2>
@@ -115,6 +116,7 @@
 	}else{
 		echo '<ul class="grid0">';
 		foreach ($productos as $key => $value) {
+				if($value["estado"] !=0){
 					echo '<li class="col-md-3 col-sm-6 col-xs-12">
 							<figure>
 
@@ -133,7 +135,10 @@
 									<a href="'.$value["ruta"].'" class="pixelProducto">
 
 										'.$value["titulo"].'<br><span style="color:rgba(0,0,0,0)">-</span>';
-										if($value["nuevo"] != 0){
+										$fecha = date('Y-m-d');
+										$fechaActual = strtotime('-30 day', strtotime($fecha));
+										$fechaNueva = date('Y-m-d',$fechaActual);
+										if($fechaNueva < $value["nuevo"]){
 											echo '<span class="label label-warning fontSize">Nuevo</span> ';
 										}
 
@@ -203,11 +208,21 @@
 				</div>
 
 			</li>';
-				}
+		}else{
+			$estado = 0;
+		}
+	}
+	if($estado == 0){
+				echo '<div class="col-xs-12 text-center error404">
+				<h1><small>¡Ooops!</small></h1>
+				<h2>Aún no hay productos en está sección</h2>
+				</div>';
+			}
 			echo '</ul>
 
 			<ul class="list0" style="display:none">';
 			foreach ($productos as $key => $value) {
+				if($value["estado"] != 0){
 				echo '<li class="col-xs-12">
 
 			  		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
@@ -234,7 +249,10 @@
 
 									'.$value["titulo"].'<br>';
 
-									if($value["nuevo"] != 0){
+										$fecha = date('Y-m-d');
+										$fechaActual = strtotime('-30 day', strtotime($fecha));
+										$fechaNueva = date('Y-m-d',$fechaActual);
+										if($fechaNueva < $value["nuevo"]){
 											echo '<span class="label label-warning">Nuevo</span> ';
 										}
 
@@ -304,7 +322,15 @@
 					</div>
 					<div class="col-xs-12"><hr></div>
 				</li>';
-
+                    }else{
+                    	$estado = 0;
+                    }
+			}
+			if($estado == 0){
+				echo '<div class="col-xs-12 text-center error404">
+				<h1><small>¡Ooops!</small></h1>
+				<h2>Aún no hay productos en está sección</h2>
+				</div>';
 			}
 
 		echo '</ul>';
@@ -319,6 +345,7 @@
 			======================================-->
 
 			<?php
+			if($value["estado"] != 0){
 
 				if(count($listaProductos) != 0){
 
@@ -445,7 +472,7 @@
 					}
 
 				}
-
+}
 			?>
 
 			</center>

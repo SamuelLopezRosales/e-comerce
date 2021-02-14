@@ -206,21 +206,16 @@ INFOPRODUCTOS
 					=============================================*/
 
 					if($infoproducto["oferta"] == 0){
-
-						if($infoproducto["nuevo"] == 0){
-
+						$fecha = date('Y-m-d');
+						$fechaActual = strtotime('-30 day', strtotime($fecha));
+						$fechaNueva = date('Y-m-d',$fechaActual);
+						if($fechaNueva > $infoproducto["nuevo"]){
 							echo '<h1 class="text-muted text-uppercase">'.$infoproducto["titulo"].'</h1>';
-
 						}else{
-
 							echo '<h1 class="text-muted text-uppercase">'.$infoproducto["titulo"].'
-
 							<br>
-
 							<small>
-
 								<span class="label label-warning">Nuevo</span>
-
 							</small>
 
 							</h1>';
@@ -228,9 +223,10 @@ INFOPRODUCTOS
 						}
 
 					}else{
-
-						if($infoproducto["nuevo"] == 0){
-
+						$fecha = date('Y-m-d');
+						$fechaActual = strtotime('-30 day', strtotime($fecha));
+						$fechaNueva = date('Y-m-d',$fechaActual);
+						if($fechaNueva > $infoproducto["nuevo"]){
 							echo '<h1 class="text-muted text-uppercase">'.$infoproducto["titulo"].'
 
 							<br>
@@ -1047,7 +1043,7 @@ ARTÏCULOS RELACIONADOS
 				echo '<ul class="grid0">';
 
 				foreach ($relacionados as $key => $value) {
-
+				if($value["estado"] != 0){
 				echo '<li class="col-md-3 col-sm-6 col-xs-12">
 
 						<figure>
@@ -1070,7 +1066,10 @@ ARTÏCULOS RELACIONADOS
 
 									<span style="color:rgba(0,0,0,0)">-</span>';
 
-									if($value["nuevo"] != 0){
+									$fecha = date('Y-m-d');
+									$fechaActual = strtotime('-30 day', strtotime($fecha));
+									$fechaNueva = date('Y-m-d',$fechaActual);
+									if($fechaNueva < $value["nuevo"]){
 
 										echo '<span class="label label-warning fontSize">Nuevo</span> ';
 
@@ -1167,6 +1166,7 @@ ARTÏCULOS RELACIONADOS
 						</div>
 
 					</li>';
+					}
 				}
 
 			echo '</ul>';
